@@ -1,7 +1,6 @@
 const initialState = {
-  users: [  ],
-  currentUser: [
-    {
+  users: [],
+  currentUser: {
       id: 1,
       name: '',
       username: '',
@@ -24,9 +23,8 @@ const initialState = {
         bs: ''
       }
     },
-],
   albums: [],
-  photo: [],
+  photos: [],
   };
 
   const userReducer = (state = initialState, action) => {
@@ -40,6 +38,27 @@ const initialState = {
         return {
           ...state,
           currentUser: action.currentUser,
+        };
+      case 'GET_ALBUM_USER':
+        return {
+          ...state,
+          albums: action.album,
+        };
+      case 'GET_PHOTO_ALBUM':
+        return {
+          ...state,
+          photos: action.photo,
+        };
+      case 'GET_PHOTO_USER':
+        const photo1 = action.photo.map(a => a.albumId)
+        return {
+          ...state,
+          albums: state.albums.map(u => {
+            if (photo1.includes(+u.id)) {
+              return {...u, amountPhoto: photo1.filter(function(x){return x==+u.id}).length}
+            }
+              return u
+          }),
         };
 
       default:

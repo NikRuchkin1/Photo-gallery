@@ -13,12 +13,20 @@
   flex-direction: column;
   align-items: center;
 }
-.userInfo {
-  color: #fff;
+.boxInfo {
+  margin-bottom: 10px;
+  .userInfo {
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    div {
+      margin: 10px 10px 0px 0px;
+    }
+  }
 }
-
 .map {
-  height: 400px;
+  height: 300px;
   width: 100%;
 }
 
@@ -29,6 +37,18 @@
   justify-content: space-evenly;
   .user {
     margin: 20px;
+  }
+  .album {
+    width: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    img {
+      width: 80px;
+    }
   }
 }
 
@@ -51,4 +71,11 @@
       }
     }
   }
+}
+
+.photoBox {
+  width: 230px;
+  text-align: center;
+  margin: 10px;
+  color: #fff;
 }
