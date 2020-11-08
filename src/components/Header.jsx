@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 function Header() {
 
@@ -6,15 +7,16 @@ function Header() {
         <div className="Header">
             <div className='header_box'>
                 <ul className='noteHeader'>
-                    <li>
-                        Главная
-                    </li>
-                    <li>
-                        Пользователи
-                    </li>
-                    <li>
-                        Альбомы
-                    </li>
+                    <NavLink className='LinkHeader' to='/'>
+                        <li>
+                            Пользователи
+                        </li>
+                    </NavLink>
+                    <NavLink className='LinkHeader' to='/All_Albums/'>
+                        <li>
+                            Альбомы
+                        </li>
+                    </NavLink>
                 </ul>
             </div>
             <div className='header_photo'>

@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import GoogleMapReact from 'google-map-react';
 
-const Marker = ({ text }) => <div>{text}</div>;
-function Albums(props) {
+const Marker = ({ text }) => <div className='marker'>{text}</div>;
+const UserInfoMemo = React.memo(function Albums(props) {
     const dispatch = useDispatch()
     React.useEffect(() => {
         let userID = +props.match.params.id;
@@ -16,8 +16,6 @@ function Albums(props) {
         dispatch(getCurrentUser(userID))
     }, []);
     const currentUser = useSelector(({userReducer}) => userReducer.currentUser)
-    const albums = useSelector(({userReducer}) => userReducer.albums)
-
     const latUser = +currentUser.address.geo.lat
     const lngUser = +currentUser.address.geo.lng
     const center = {
@@ -94,11 +92,11 @@ function Albums(props) {
                 </div>
             </div>
             <div className='albumsBox'>
-                <Album albums={albums}/>
+                <Album/>
             </div>
         </div>
     )
-}
+})
 
-const AlbumsRouter = withRouter(Albums);
+const AlbumsRouter = withRouter(UserInfoMemo);
 export default AlbumsRouter

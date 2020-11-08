@@ -1,7 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { setPhoto } from '../redux/action/user';
+import { getCurrentPhoto, setPhoto } from '../redux/action/user';
+import {Popup} from '../components'
 
 function Photo(props) {
     const dispatch = useDispatch()
@@ -12,13 +13,23 @@ function Photo(props) {
         }
         dispatch(setPhoto(albumID))
     }, []);
-    const photo = useSelector(({userReducer}) => userReducer.photos)
-
+    const photoArray = useSelector(({userReducer}) => userReducer.photos)
+    const [popup, setPopup] = React.useState(false)
+    const openPopup = (id) => {
+        setPopup(!popup)
+        dispatch(getCurrentPhoto(id))
+    }
+    const closePopup = () => {
+        setPopup(!popup)
+    }
     return (
         <div>
             <div className='main'>
-                {photo.map(u => 
-                    <div className='photoBox' key={u.id}>
+                {photoArray && photoArray.map(u =>
+                    <div
+                    className='photoBox'
+                    onClick={()=>openPopup(u.id)}
+                    key={u.id}>
                         <div>
                             <img src={u.thumbnailUrl} alt='photo'/>
                         </div>
@@ -27,6 +38,7 @@ function Photo(props) {
                         </div>
                     </div>)}
             </div>
+            {popup? <Popup openPopup={closePopup} /> : null}
         </div>
     )
 }

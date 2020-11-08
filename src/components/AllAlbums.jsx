@@ -1,14 +1,19 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import gallery from '../img/ga.png'
+import { getAllAlbum, getPhotoUser } from '../redux/action/user'
 
-const AlbumMemo = React.memo(function Album() {
-    const albumReducer = useSelector(({userReducer}) => userReducer.albums)
+function AllAlbums() {
+    const dispatch = useDispatch()
+    React.useEffect( () => {
+        dispatch(getAllAlbum())
+    },[])
+
+    const albums = useSelector(({userReducer}) => userReducer.albums)
     return (
-        <div>
-            <div className='main'>
-                {albumReducer && albumReducer.map(data =>
+        <div className='main'>
+            {albums && albums.map(data =>
                 <Link to={'/Photo/' + data.id} key={data.id}>
                     <div className='album'>
                         <div>
@@ -20,10 +25,8 @@ const AlbumMemo = React.memo(function Album() {
                         <div>{`Amount photo: ${data.amountPhoto}`}</div>
                     </div>
                 </Link>)}
-            </div>
         </div>
     )
-})
+}
 
-const AlbumRouter = withRouter(AlbumMemo);
-export default AlbumRouter
+export default AllAlbums
